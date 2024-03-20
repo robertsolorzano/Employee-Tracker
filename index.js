@@ -26,7 +26,7 @@ function displayMenu() {
           viewAllDepartments();
           break;
         case 'View all roles':
-          viewAllRoles();//need to make later
+          viewAllRoles();
           break;
         case 'View all employees':
           viewAllEmployees();//need to make later
@@ -75,6 +75,28 @@ function viewAllRoles() {
     });
   }
   
+// Function to view all employees
+function viewAllEmployees() {
+    const query = `
+      SELECT 
+        employee.id, 
+        employee.first_name, 
+        employee.last_name, 
+        role.title, 
+        department.name AS department,
+        role.salary, 
+        CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+      FROM employee
+      LEFT JOIN role ON employee.role_id = role.id
+      LEFT JOIN department ON role.department_id = department.id
+      LEFT JOIN employee manager ON employee.manager_id = manager.id
+    `;
+    connection.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      displayMenu();
+    });
+  }
 
 // Start the application
 displayMenu();
