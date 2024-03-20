@@ -23,7 +23,7 @@ function displayMenu() {
     .then((answer) => {
       switch (answer.choice) {
         case 'View all departments':
-          viewAllDepartments();//need to make later
+          viewAllDepartments();
           break;
         case 'View all roles':
           viewAllRoles();//need to make later
@@ -50,6 +50,16 @@ function displayMenu() {
       }
     });
 }
+
+// Function to view all departments
+function viewAllDepartments() {
+    const query = 'SELECT * FROM department';
+    connection.query(query, (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      displayMenu();
+    });
+  }
 
 
 // Start the application
