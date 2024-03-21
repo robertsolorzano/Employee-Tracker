@@ -35,14 +35,13 @@ function displayMenu() {
           addDepartment();
           break;
         case 'Add a role':
-          addRole();//need to make later
+          addRole();
           break;
         case 'Add an employee':
-          addEmployee();//need to make later
+          addEmployee();
           break;
         case 'Update an employee role':
-          updateEmployeeRole();//need to make later
-          break;
+          updateEmployeeRole();
         case 'Exit':
           connection.end();
           console.log('Goodbye!');
@@ -221,6 +220,54 @@ function addEmployee() {
             (err, res) => {
               if (err) throw err;
               console.log('Employee added successfully!');
+              displayMenu();
+            }
+          );
+        });
+    });
+  });
+}
+
+// Function to update an employee's role
+function updateEmployeeRole() {
+  const employeeQuery = 'SELECT * FROM employee';
+  const roleQuery = 'SELECT * FROM role';
+
+  connection.query(employeeQuery, (err, employees) => {
+    if (err) throw err;
+
+    connection.query(roleQuery, (err, roles) => {
+      if (err) throw err;
+
+      inquirer
+        .prompt([
+          {
+            type: 'list',
+            name: 'employeeId',
+            message: 'Select the employee to update:',
+            choices: employees.map((employee) => ({
+              name: `${employee.first_name} ${employee.last_name}`,
+              value: employee.id,
+            })),
+          },
+          {
+            type: 'list',
+            name: 'roleId',
+            message: 'Select the new role for the employee:',
+            choices: roles.map((role) => ({
+              name: role.title,
+              value: role.id,
+            })),
+          },
+        ])
+        .then((answer) => {
+          const query = 'UPDATE employee SET role_id = ? WHERE id = ?';
+          connection.query(
+            query,
+            [answer.roleId, answer.employeeId],
+            (err, res) => {
+              if (err) throw err;
+              console.log('Employee role updated successfully!');
               displayMenu();
             }
           );
