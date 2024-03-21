@@ -16,6 +16,7 @@ function displayMenu() {
         'Add a role',
         'Add an employee',
         'Update an employee role',
+        'Update an employee manager',
         'Exit',
       ],
       loop: false,
@@ -42,6 +43,9 @@ function displayMenu() {
           break;
         case 'Update an employee role':
           updateEmployeeRole();
+          break;
+        case 'Update an employee manager':
+          updateEmployeeManager();
           break;
         case 'Exit':
           connection.end();
@@ -277,7 +281,51 @@ function updateEmployeeRole() {
   });
 }
 
+// Function to update an employee's manager
+function updateEmployeeManager() {
+  const employeeQuery = 'SELECT * FROM employee';
 
+  connection.query(employeeQuery, (err, employees) => {
+    if (err) throw err;
+
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'employeeId',
+          message: 'Select the employee to update:',
+          choices: employees.map((employee) => ({
+            name: `${employee.first_name} ${employee.last_name}`,
+            value: employee.id,
+          })),
+        },
+        {
+          type: 'list',
+          name: 'managerId',
+          message: 'Select the new manager for the employee:',
+          choices: [
+            { name: 'None', value: null },
+            ...employees.map((employee) => ({
+              name: `${employee.first_name} ${employee.last_name}`,
+              value: employee.id,
+            })),
+          ],
+        },
+      ])
+      .then((answer) => {
+        const query = 'UPDATE employee SET manager_id = ? WHERE id = ?';
+        connection.query(
+          query,
+          [answer.managerId, answer.employeeId],
+          (err, res) => {
+            if (err) throw err;
+            console.log('Employee manager updated successfully!');
+            displayMenu();
+          }
+        );
+      });
+  });
+}
 
 // Start the application
 displayMenu();
