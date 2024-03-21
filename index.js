@@ -42,6 +42,7 @@ function displayMenu() {
           break;
         case 'Update an employee role':
           updateEmployeeRole();
+          break;
         case 'Exit':
           connection.end();
           console.log('Goodbye!');
@@ -275,6 +276,8 @@ function updateEmployeeRole() {
     });
   });
 }
+
+
 
 // Start the application
 displayMenu();
