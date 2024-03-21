@@ -29,7 +29,7 @@ function displayMenu() {
     .then((answer) => {
       switch (answer.choice) {
         case 'View all departments':
-          viewAllDepartments();
+          viewAllDepartments(displayMenu);
           break;
         case 'View all roles':
           viewAllRoles();
