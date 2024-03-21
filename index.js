@@ -29,10 +29,10 @@ function displayMenu() {
           viewAllRoles();
           break;
         case 'View all employees':
-          viewAllEmployees();//need to make later
+          viewAllEmployees();
           break;
         case 'Add a department':
-          addDepartment();//need to make later
+          addDepartment();
           break;
         case 'Add a role':
           addRole();//need to make later
@@ -96,6 +96,24 @@ function viewAllEmployees() {
       console.table(res);
       displayMenu();
     });
+  }
+
+// Function to add a department
+function addDepartment() {
+    inquirer
+      .prompt({
+        type: 'input',
+        name: 'departmentName',
+        message: 'Enter the name of the department:',
+      })
+      .then((answer) => {
+        const query = 'INSERT INTO department SET ?';
+        connection.query(query, { name: answer.departmentName }, (err, res) => {
+          if (err) throw err;
+          console.log('Department added successfully!');
+          displayMenu();
+        });
+      });
   }
 
 // Start the application
