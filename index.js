@@ -163,5 +163,71 @@ function addRole() {
     });
   }
 
+// Function to add an employee
+function addEmployee() {
+  const roleQuery = 'SELECT * FROM role';
+  const managerQuery = 'SELECT * FROM employee';
+
+  connection.query(roleQuery, (err, roles) => {
+    if (err) throw err;
+
+    connection.query(managerQuery, (err, managers) => {
+      if (err) throw err;
+
+      inquirer
+        .prompt([
+          {
+            type: 'input',
+            name: 'firstName',
+            message: "Enter the employee's first name:",
+          },
+          {
+            type: 'input',
+            name: 'lastName',
+            message: "Enter the employee's last name:",
+          },
+          {
+            type: 'list',
+            name: 'roleId',
+            message: "Select the employee's role:",
+            choices: roles.map((role) => ({
+              name: role.title,
+              value: role.id,
+            })),
+          },
+          {
+            type: 'list',
+            name: 'managerId',
+            message: "Select the employee's manager:",
+            choices: [
+              { name: 'None', value: null },
+              ...managers.map((manager) => ({
+                name: `${manager.first_name} ${manager.last_name}`,
+                value: manager.id,
+              })),
+            ],
+          },
+        ])
+        .then((answer) => {
+          const query = 'INSERT INTO employee SET ?';
+          connection.query(
+            query,
+            {
+              first_name: answer.firstName,
+              last_name: answer.lastName,
+              role_id: answer.roleId,
+              manager_id: answer.managerId,
+            },
+            (err, res) => {
+              if (err) throw err;
+              console.log('Employee added successfully!');
+              displayMenu();
+            }
+          );
+        });
+    });
+  });
+}
+
 // Start the application
 displayMenu();
