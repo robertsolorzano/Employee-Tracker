@@ -32,28 +32,28 @@ function displayMenu() {
           viewAllDepartments(displayMenu);
           break;
         case 'View all roles':
-          viewAllRoles();
+          viewAllRoles(displayMenu);
           break;
         case 'View all employees':
-          viewAllEmployees();
+          viewAllEmployees(displayMenu);
           break;
         case 'View department budgets':
-          viewDepartmentBudget();
+          viewDepartmentBudget(displayMenu);
           break;
         case 'Add a department':
-          addDepartment();
+          addDepartment(displayMenu);
           break;
         case 'Add a role':
-          addRole();
+          addRole(displayMenu);
           break;
         case 'Add an employee':
-          addEmployee();
+          addEmployee(displayMenu);
           break;
         case 'Update an employee role':
-          updateEmployeeRole();
+          updateEmployeeRole(displayMenu);
           break;
         case 'Update an employee manager':
-          updateEmployeeManager();
+          updateEmployeeManager(displayMenu);
           break;
         case 'Exit':
           connection.end();
