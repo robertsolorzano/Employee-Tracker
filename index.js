@@ -4,6 +4,7 @@ const { viewAllDepartments, addDepartment } = require('./lib/departments');
 const { viewAllRoles, addRole, updateEmployeeRole } = require('./lib/roles');
 const { viewAllEmployees, addEmployee, updateEmployeeManager } = require('./lib/employees');
 const { viewDepartmentBudget } = require('./lib/budgets');
+const { generateLogo } = require('./utils/logo')
 
 // Function to display the main menu
 function displayMenu() {
@@ -65,4 +66,5 @@ function displayMenu() {
 
 
 // Start the application
+generateLogo();
 displayMenu();
