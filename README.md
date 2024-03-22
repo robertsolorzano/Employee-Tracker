@@ -11,6 +11,7 @@ Employee Tracker is a command-line application that allows business owners to ef
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [Credits](#credits)
 - [License](#license)
 
 ## Features
@@ -28,17 +29,53 @@ Employee Tracker is a command-line application that allows business owners to ef
 
 ## Installation
 
+1. Clone the repository:
+```bash
+git clone git@github.com:robertsolorzano/Employee-Tracker.git
+```
 
+2. Install the dependencies:
+```bash
+npm install
+```
+
+3. Initialize schema:
+    - Inside your repository, run this command to access mySql shell: 
+        ```bash
+        mysql -u yourusername -p
+        ```
+    - Enter mySql password
+    - Inside mySql shell enter: 
+        ```sql
+        source ./db/schema.sql
+        ```
+
+    - (Optional) Edit seed.sql with your existing employees to initially seed your DB:
+    ```sql
+    source ./db/seed.sql
+    ```
+
+
+4. Start the app: 
+```bash
+npm start
+```
 
 ## Usage
 
-
+Use the arrow keys ⬆️⬇️ to navigate and press `Enter` to select an option. Follow the prompts and when you are done simply press the `Exit` button to return back. 
 
 ## Contributing
 
 Contributors: [robertsolorzano](https://github.com/robertsolorzano)
 
+## Credits
 
+- ascII art generator:
+[patorjk.com](https://patorjk.com/software/taag/#p=display&h=3&v=3&f=Soft&t=Employee%20%0ATracker)
+
+- MYSQL function references: 
+[w3schools.com](https://www.w3schools.com/sql/sql_ref_mysql.asp)
 
 ## License
 
