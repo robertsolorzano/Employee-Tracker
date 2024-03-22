@@ -65,6 +65,8 @@ npm start
 
 Use the arrow keys ⬆️⬇️ to navigate and press `Enter` to select an option. Follow the prompts and when you are done simply press the `Exit` button to return back. 
 
+Watch Video for tutorial: [Video-Demo](https://www.youtube.com/watch?v=okZLgGoL3FU&ab_channel=robethius)
+
 ## Contributing
 
 Contributors: [robertsolorzano](https://github.com/robertsolorzano)
